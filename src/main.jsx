@@ -5,28 +5,28 @@ import App from "./pages/App/App";
 import "./index.css";
 
 const theme = createTheme({ 
-  palette: {
-    primary: {
-      main: '#F4A561'
-    },
-    secondary: {
-      main: '#ffffff'
-    },
-  },
-  typography: {
-    h1: {
-      fontSize: '3rem',
-      fontWeight: 700,
-    },
-    h2: {
-      fontSize: '2rem',
-      fontWeight: 700,
-    },
-    h3: {
-      fontSize: '1.5rem',
-      fontWeight: 700,
-    },
-  }
+  // palette: {
+  //   primary: {
+  //     main: '#F4A561'
+  //   },
+  //   secondary: {
+  //     main: '#ffffff'
+  //   },
+  // },
+  // typography: {
+  //   h1: {
+  //     fontSize: '3rem',
+  //     fontWeight: 700,
+  //   },
+  //   h2: {
+  //     fontSize: '2rem',
+  //     fontWeight: 700,
+  //   },
+  //   h3: {
+  //     fontSize: '1.5rem',
+  //     fontWeight: 700,
+  //   },
+  // }
 })
 
 ReactDOM.createRoot(document.getElementById("root")).render(
