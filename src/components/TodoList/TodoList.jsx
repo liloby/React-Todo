@@ -2,7 +2,7 @@ import { useState } from "react";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import NewTodoEnter from "../NewTodoEnter/NewTodoEnter";
 import { v4 as uuidv4 } from "uuid";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Card } from "@mui/material";
 export default function TodoList() {
   const [todos, setTodos] = useState([
     {
@@ -42,8 +42,16 @@ export default function TodoList() {
     },
   ]);
 
+  // Count the number of important tasks
+  const [importantCount, setImportantCount] = useState(0);
+
+  // Delete a todo
   function deleteTodo(id) {
     setTodos(todos.filter((todo) => todo.id !== id));
+    // Only decrement the important count if it's greater than 3
+    if (importantCount >= 3) {
+      setImportantCount(importantCount - 1);
+    }
   }
 
   return (
@@ -58,6 +66,8 @@ export default function TodoList() {
               todo={todo}
               idx={idx}
               deleteTodo={deleteTodo}
+              importantCount={importantCount}
+              setImportantCount={setImportantCount}
             />
           </Grid>
         ))}
