@@ -1,43 +1,40 @@
 import { useState } from "react";
 import TodoListItem from "../TodoListItem/TodoListItem";
+import NewTodoForm from "../NewToDoForm/NewTodoForm";
+import { v4 as uuidv4 } from "uuid";
 export default function TodoList() {
   const [todos, setTodos] = useState([
     {
-      id: 1,
-      task: "Take out the trash",
+      id: uuidv4().slice(-7),
+      name: "Take out the trash",
       difficulty: 1,
       date: Date.now(),
       completed: false,
     },
     {
-      id: 2,
-      task: "Grocery shopping",
+      id: uuidv4().slice(-7),
+      name: "Grocery shopping",
       difficulty: 2,
       date: Date.now(),
       completed: false,
     },
   ]);
+
+  function deleteTodo(id) {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  }
+
   return (
     <div>
-      <div>
-        <label htmlFor="">
-          Task:
-        <input type="text" className="task" />
-        </label>
-        <label htmlFor="">
-          Difficulty:
-        <select name="" id="" className="difficulty">
-          <option value="1">1 - Easy</option>
-          <option value="2">2 - Moderate</option>
-          <option value="3">3 - Challenging</option>
-          <option value="4">4 - Difficult</option>
-          <option value="5">5 - Very Difficult</option>
-        </select>
-        </label>
-        <button className="add-btn">Add Task</button>
-      </div>
-      {todos.map((todo) => (
-        <TodoListItem todo={todo} />
+      <NewTodoForm setTodos={setTodos} todos={todos} />
+      {todos.map((todo, idx) => (
+        <TodoListItem
+          key={todo.name}
+          setTodos={setTodos}
+          todo={todo}
+          idx={idx}
+          deleteTodo={deleteTodo}
+        />
       ))}
     </div>
   );
