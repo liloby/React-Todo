@@ -26,7 +26,7 @@ function App() {
         <span style={{ transform: 'rotate(20deg)', display: 'inline-block', color: '#ff0000' }}>Do</span>{" "}
         <span style={{fontSize: '4rem'}}>App</span>
       </Typography>
-      <TodoList />
+      <TodoList isMobile={isMobile}/>
     </Container>
   );
 }

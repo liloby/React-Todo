@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   FormControl,
   InputLabel,
@@ -10,10 +10,10 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 
-export default function NewTodoEnter({ setTodos, todos }) {
-    // initial set up for adding new task
+export default function NewTodoEnter({ setTodos, todos, isMobile }) {
+  // initial set up for adding new task
   const emptyTask = {
     name: "",
     difficulty: 1,
@@ -30,12 +30,26 @@ export default function NewTodoEnter({ setTodos, todos }) {
     setTask(emptyTask);
   };
 
+  // ref for input field
+  const inputRef = useRef(null);
+  // focus on input field when component mounts
+  useEffect(() => {
+      inputRef.current.focus();
+  }, []);
+
   return (
     <Container
-      sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}
+      sx={{
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        justifyContent: "center",
+        alignItems: isMobile ? "center" : "",
+      }}
     >
-      <Box sx={{ margin: '0 .5rem'}}>
+      <Box sx={{ margin: "0 .5rem", width: isMobile ? "100%" : "auto" }}>
         <TextField
+          inputRef={inputRef}
+          sx={{ width: isMobile ? "100%" : "auto", marginBottom: "1rem" }}
           value={task.name}
           onChange={(e) => setTask({ ...task, name: e.target.value })}
           type="text"
@@ -43,8 +57,8 @@ export default function NewTodoEnter({ setTodos, todos }) {
           label="Enter a task"
         />
       </Box>
-      <Box sx={{margin: '0 .5rem'}}>
-        <FormControl>
+      <Box sx={{ margin: "0 .5rem", width: isMobile ? "100%" : "auto" }}>
+        <FormControl sx={{ width: isMobile ? "100%" : "auto" }}>
           <InputLabel id="difficulty-label">Difficulty</InputLabel>
           <Select
             labelId="difficulty-label"
@@ -62,10 +76,20 @@ export default function NewTodoEnter({ setTodos, todos }) {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{margin: '.5rem'}}>
-        <Button variant='contained' size="medium" onClick={handleAddTask} >
-          Add Task 
-            <AddIcon sx={{fontSize: '1.2rem' ,marginLeft: '.1rem'}}/>
+      <Box
+        sx={{
+          margin: isMobile ? "1rem 0 0 0" : "1rem .5rem",
+          width: isMobile ? "100%" : "auto",
+        }}
+      >
+        <Button
+          sx={{ width: isMobile ? "100%" : "auto" }}
+          variant="contained"
+          size="medium"
+          onClick={handleAddTask}
+        >
+          Add Task
+          <AddIcon sx={{ fontSize: "1.2rem", marginLeft: ".1rem" }} />
         </Button>
       </Box>
     </Container>

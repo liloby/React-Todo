@@ -3,7 +3,7 @@ import TodoListItem from "../TodoListItem/TodoListItem";
 import NewTodoEnter from "../NewTodoEnter/NewTodoEnter";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Grid, Card } from "@mui/material";
-export default function TodoList() {
+export default function TodoList({isMobile}) {
   const [todos, setTodos] = useState([
     {
       id: uuidv4().slice(-7),
@@ -56,7 +56,7 @@ export default function TodoList() {
 
   return (
     <>
-      <NewTodoEnter setTodos={setTodos} todos={todos} />
+      <NewTodoEnter setTodos={setTodos} todos={todos} isMobile={isMobile} />
       <Grid container sx={{ marginTop: 2 }}>
         {todos.map((todo, idx) => (
           <Grid item xs={12} sm={6} md={4} lg={4} key={todo.id}>
