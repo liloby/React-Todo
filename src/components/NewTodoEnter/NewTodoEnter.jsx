@@ -26,7 +26,7 @@ export default function NewTodoEnter({ setTodos, todos, isMobile }) {
   // handling adding a new task
   const handleAddTask = () => {
     if (!task.name) return;
-    setTodos([...todos, { ...task, id: uuidv4().slice(-7) }]);
+    setTodos([{ ...task, id: uuidv4().slice(-7) }, ...todos]);
     setTask(emptyTask);
   };
 
@@ -34,7 +34,7 @@ export default function NewTodoEnter({ setTodos, todos, isMobile }) {
   const inputRef = useRef(null);
   // focus on input field when component mounts
   useEffect(() => {
-      inputRef.current.focus();
+    inputRef.current.focus();
   }, []);
 
   return (
@@ -49,18 +49,35 @@ export default function NewTodoEnter({ setTodos, todos, isMobile }) {
       <Box sx={{ margin: "0 .5rem", width: isMobile ? "100%" : "auto" }}>
         <TextField
           inputRef={inputRef}
-          sx={{ width: isMobile ? "100%" : "auto", marginBottom: "1rem" }}
+          sx={{
+            width: isMobile ? "100%" : "auto",
+            marginBottom: "1rem",
+            bgcolor: "white",
+            fieldset: { borderColor: "transparent" },
+            borderRadius: ".2rem",
+            boxShadow: "5px 5px 8px #7373732b",
+          }}
           value={task.name}
           onChange={(e) => setTask({ ...task, name: e.target.value })}
           type="text"
           className="name"
-          label="Enter a task"
+          label="Enter a task..."
         />
       </Box>
       <Box sx={{ margin: "0 .5rem", width: isMobile ? "100%" : "auto" }}>
-        <FormControl sx={{ width: isMobile ? "100%" : "auto" }}>
+        <FormControl
+          sx={{
+            width: isMobile ? "100%" : "auto",
+            boxShadow: "5px 5px 8px #7373732b",
+          }}
+        >
           <InputLabel id="difficulty-label">Difficulty</InputLabel>
           <Select
+            sx={{
+              bgcolor: "white",
+              fieldset: { borderColor: "transparent" },
+              borderRadius: ".2rem",
+            }}
             labelId="difficulty-label"
             label="Difficulty"
             value={task.difficulty}
@@ -83,7 +100,10 @@ export default function NewTodoEnter({ setTodos, todos, isMobile }) {
         }}
       >
         <Button
-          sx={{ width: isMobile ? "100%" : "auto" }}
+          sx={{
+            width: isMobile ? "100%" : "auto",
+            boxShadow: "5px 5px 8px #7373732b",
+          }}
           variant="contained"
           size="medium"
           onClick={handleAddTask}
