@@ -19,6 +19,7 @@ export default function NewTodoEnter({ setTodos, todos, isMobile }) {
     difficulty: 1,
     date: Date.now(),
     completed: false,
+    important: false,
   };
   // state for new task
   const [task, setTask] = useState(emptyTask);

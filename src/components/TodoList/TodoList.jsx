@@ -15,36 +15,41 @@ export default function TodoList({ isMobile }) {
       id: uuidv4().slice(-7),
       name: "Take out the trash",
       difficulty: 1,
-      date: Date.now(),
+      date: 1678755641247,
       completed: false,
+      important: false,
     },
     {
       id: uuidv4().slice(-7),
       name: "Grocery shopping",
       difficulty: 2,
-      date: Date.now(),
+      date: 1678655641247,
       completed: false,
-    },
-    {
-      id: uuidv4().slice(-7),
-      name: "Mow the lawn",
-      difficulty: 3,
-      date: Date.now(),
-      completed: false,
-    },
-    {
-      id: uuidv4().slice(-7),
-      name: "Do the laundry",
-      difficulty: 4,
-      date: Date.now(),
-      completed: false,
+      important: false,
     },
     {
       id: uuidv4().slice(-7),
       name: "Study for the exam",
       difficulty: 5,
-      date: Date.now(),
+      date: 1678555641247,
       completed: false,
+      important: false,
+    },
+    {
+      id: uuidv4().slice(-7),
+      name: "Mow the lawn",
+      difficulty: 3,
+      date: 1678455641247,
+      completed: false,
+      important: false,
+    },
+    {
+      id: uuidv4().slice(-7),
+      name: "Do the laundry",
+      difficulty: 4,
+      date: 1678255641247,
+      completed: false,
+      important: false,
     },
   ];
 });
@@ -52,18 +57,30 @@ export default function TodoList({ isMobile }) {
 useEffect(() => {
   // Save the todos to local storage
   localStorage.setItem("todos", JSON.stringify(todos));
-}, [todos, setTodos]);
+}, [todos]);
 
   // Count the number of important tasks
-  const [importantCount, setImportantCount] = useState(0);
+  const [importantCount, setImportantCount] = useState(() => {
+    // Get the important count from local storage
+    const savedImportantCount = localStorage.getItem("importantCount");
+    const initialImportantCount = JSON.parse(savedImportantCount);
+    // If there is no important count, return 0
+    return initialImportantCount || 0;
+  });
+
+  useEffect(() => {
+    // Save the important count to local storage
+    localStorage.setItem("importantCount", JSON.stringify(importantCount));
+  }, [importantCount]);
 
   // Delete a todo
   function deleteTodo(id) {
-    setTodos(todos.filter((todo) => todo.id !== id));
-    // Only decrement the important count if it's greater than 3
-    if (importantCount >= 3) {
+    // Only decrement the important count if the todo is marked important
+    if (todos.find((todo) => todo.id === id).important) {
       setImportantCount(importantCount - 1);
     }
+    setTodos(todos.filter((todo) => todo.id !== id));
+    // Only decrement the important count if it's greater than 3 and the todo is important
   }
 
   // Sort the todos by difficulty from least to most difficult

@@ -13,18 +13,27 @@ export default function TodoListItem({
   todos,
   setTodos,
 }) {
-  const [markImportant, setMarkImportant] = useState(false);
-
   // handle marking a task as important
   function handleMarkImportant() {
-    if (markImportant) {
-      setImportantCount(importantCount - 1);
-      setMarkImportant(false);
-      return;
-    }
     if (importantCount < 3) {
-      setImportantCount(importantCount + 1);
-      setMarkImportant(true);
+        setImportantCount(importantCount + 1);
+      const updatedTodos = todos.map((t) => {
+        if (t.id === todo.id) {
+          return { ...t, important: true };
+        }
+        return t;
+      });
+      setTodos(updatedTodos);
+    }
+    if (todo.important === true) {
+      setImportantCount(importantCount - 1);
+      const updatedTodos = todos.map((t) => {
+        if (t.id === todo.id) {
+          return { ...t, important: false };
+        }
+        return t;
+      });
+        setTodos(updatedTodos);
     }
   }
 
@@ -32,14 +41,14 @@ export default function TodoListItem({
   function handleCompleteTodo() {
     // create a new array of todos, with the updated todo
     const updatedTodos = todos.map((t) => {
-        // if the todo id matches the id of the todo we want to update, return the updated todo
-        if (t.id === todo.id) {
-          return { ...t, completed: true };
-        }
-        // otherwise, return the original todo
-        return t;
-      });
-      setTodos(updatedTodos);
+      // if the todo id matches the id of the todo we want to update, return the updated todo
+      if (t.id === todo.id) {
+        return { ...t, completed: true };
+      }
+      // otherwise, return the original todo
+      return t;
+    });
+    setTodos(updatedTodos);
   }
 
   return (
@@ -79,7 +88,7 @@ export default function TodoListItem({
       >
         <PriorityHighIcon
           sx={{
-            color: markImportant == true ? "red" : "#00000054",
+            color: todo.important == true ? "red" : "#00000054",
             ":hover": { color: "red" },
           }}
         />
