@@ -58,7 +58,7 @@ export default function TodoList({ isMobile }) {
   });
 
   const [totalStars, setTotalStars] = useState(() => {
-    // Get the total stars from local storage
+    // Get the total stars from local
     const savedTotalStars = localStorage.getItem("totalStars");
     const initialTotalStars = JSON.parse(savedTotalStars);
     // If there are no total stars, return 0
@@ -121,6 +121,7 @@ export default function TodoList({ isMobile }) {
           badgeContent={totalStars}
           color="secondary"
           overlap="circular"
+          max={999}
           showZero
         >
           <StarIcon sx={{ fontSize: "2rem", color: "#ffbd00" }} />

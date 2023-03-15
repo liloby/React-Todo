@@ -103,49 +103,45 @@ export default function TodoListItem({
       </Button>
       {/* <h2 className="todo-item-id">{idx + 1}</h2> */}
       <h3 className="todo-item-name">Task: {todo.name}</h3>
-      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <h3>Difficulty:</h3>
-        {todo.difficulty === 1 ? (
-            <StarIcon sx={{ color: "#ffbd00" }} />
-        )
-             : todo.difficulty === 2 ? (
-                <>
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-                </>
-             )
-             : todo.difficulty === 3 ? (
-                <>
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-                </>
-             )
-             : todo.difficulty === 4 ? (
-                <>
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-                </>
-             )
-             : todo.difficulty === 5 ? (
-                <>
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-            <StarIcon sx={{ color: "#ffbd00" }} />
-                </>
-             )
-             : (
-            <StarIcon sx={{ color: "#ffbd00" }} />
-             )
-            }   
-      </Box>
       <h3 className="todo-item-date">
-        Date Created: {new Date(todo.date).toLocaleDateString("en-US")}
+        Created on: {new Date(todo.date).toLocaleDateString("en-US")}
       </h3>
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center", margin: '-1rem 0' }}
+      >
+        <h3>Difficulty:</h3>
+        {todo.difficulty === 1 ? (
+          <StarIcon sx={{ color: "#ffbd00" }} />
+        ) : todo.difficulty === 2 ? (
+          <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+          </>
+        ) : todo.difficulty === 3 ? (
+          <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+          </>
+        ) : todo.difficulty === 4 ? (
+          <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+          </>
+        ) : todo.difficulty === 5 ? (
+          <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+          </>
+        ) : (
+          <StarIcon sx={{ color: "#ffbd00" }} />
+        )}
+      </Box>
       <h3 className="todo-item-completed">
         Completed: {todo.completed ? "Yes" : "No"}
       </h3>
