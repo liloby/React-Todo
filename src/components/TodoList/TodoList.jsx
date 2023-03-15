@@ -1,15 +1,11 @@
 import { useState, useMemo, useEffect } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import NewTodoEnter from "../NewTodoEnter/NewTodoEnter";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Grid, Card, Button } from "@mui/material";
 export default function TodoList({ isMobile }) {
-  const [todos, setTodos] = useState(() => {
-    // Get the todos from local storage
-    const savedTodos = localStorage.getItem("todos");
-    const initialTodos = JSON.parse(savedTodos)
-    // If there are no todos, return the default todos
-    return initialTodos ||
+  const [todos, setTodos] = useLocalStorage("todos", 
     [
     {
       id: uuidv4().slice(-7),
@@ -51,27 +47,11 @@ export default function TodoList({ isMobile }) {
       completed: false,
       important: false,
     },
-  ];
-});
+  ]);
 
-useEffect(() => {
-  // Save the todos to local storage
-  localStorage.setItem("todos", JSON.stringify(todos));
-}, [todos]);
 
   // Count the number of important tasks
-  const [importantCount, setImportantCount] = useState(() => {
-    // Get the important count from local storage
-    const savedImportantCount = localStorage.getItem("importantCount");
-    const initialImportantCount = JSON.parse(savedImportantCount);
-    // If there is no important count, return 0
-    return initialImportantCount || 0;
-  });
-
-  useEffect(() => {
-    // Save the important count to local storage
-    localStorage.setItem("importantCount", JSON.stringify(importantCount));
-  }, [importantCount]);
+  const [importantCount, setImportantCount] = useLocalStorage("importantCount", 0);
 
   // Delete a todo
   function deleteTodo(id) {
