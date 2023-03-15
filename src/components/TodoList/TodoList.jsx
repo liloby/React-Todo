@@ -54,6 +54,8 @@ export default function TodoList({ isMobile }) {
   ];
 });
 
+const [totalStars, setTotalStars] = useState(0)
+
 useEffect(() => {
   // Save the todos to local storage
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -114,6 +116,8 @@ useEffect(() => {
               deleteTodo={deleteTodo}
               importantCount={importantCount}
               setImportantCount={setImportantCount}
+              setTotalStars={setTotalStars}
+              totalStars={totalStars}
             />
           </Grid>
         ))}

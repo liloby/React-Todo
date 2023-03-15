@@ -6,17 +6,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TodoListItem({
   todo,
-  idx,
   deleteTodo,
   importantCount,
   setImportantCount,
   todos,
   setTodos,
+  totalStars,
+  setTotalStars,
+  idx,
 }) {
+  const [star, setStar] = useState(todo.difficulty);
+
   // handle marking a task as important
   function handleMarkImportant() {
+    // limit the number of important tasks to 3
     if (importantCount < 3) {
-        setImportantCount(importantCount + 1);
+      setImportantCount(importantCount + 1);
+      // create a new array of todos, with the updated todo
       const updatedTodos = todos.map((t) => {
         if (t.id === todo.id) {
           return { ...t, important: true };
@@ -33,7 +39,7 @@ export default function TodoListItem({
         }
         return t;
       });
-        setTodos(updatedTodos);
+      setTodos(updatedTodos);
     }
   }
 
