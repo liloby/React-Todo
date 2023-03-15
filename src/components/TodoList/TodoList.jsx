@@ -2,64 +2,78 @@ import { useState, useMemo, useEffect } from "react";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import NewTodoEnter from "../NewTodoEnter/NewTodoEnter";
 import { v4 as uuidv4 } from "uuid";
-import { Box, Grid, Card, Button } from "@mui/material";
+import { Box, Grid, Card, Button, Badge } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+
 export default function TodoList({ isMobile }) {
   const [todos, setTodos] = useState(() => {
     // Get the todos from local storage
     const savedTodos = localStorage.getItem("todos");
-    const initialTodos = JSON.parse(savedTodos)
+    const initialTodos = JSON.parse(savedTodos);
     // If there are no todos, return the default todos
-    return initialTodos ||
-    [
-    {
-      id: uuidv4().slice(-7),
-      name: "Take out the trash",
-      difficulty: 1,
-      date: 1678755641247,
-      completed: false,
-      important: false,
-    },
-    {
-      id: uuidv4().slice(-7),
-      name: "Grocery shopping",
-      difficulty: 2,
-      date: 1678655641247,
-      completed: false,
-      important: false,
-    },
-    {
-      id: uuidv4().slice(-7),
-      name: "Study for the exam",
-      difficulty: 5,
-      date: 1678555641247,
-      completed: false,
-      important: false,
-    },
-    {
-      id: uuidv4().slice(-7),
-      name: "Mow the lawn",
-      difficulty: 3,
-      date: 1678455641247,
-      completed: false,
-      important: false,
-    },
-    {
-      id: uuidv4().slice(-7),
-      name: "Do the laundry",
-      difficulty: 4,
-      date: 1678255641247,
-      completed: false,
-      important: false,
-    },
-  ];
-});
+    return (
+      initialTodos || [
+        {
+          id: uuidv4().slice(-7),
+          name: "Take out the trash",
+          difficulty: 1,
+          date: 1678755641247,
+          completed: false,
+          important: false,
+        },
+        {
+          id: uuidv4().slice(-7),
+          name: "Grocery shopping",
+          difficulty: 2,
+          date: 1678655641247,
+          completed: false,
+          important: false,
+        },
+        {
+          id: uuidv4().slice(-7),
+          name: "Study for the exam",
+          difficulty: 5,
+          date: 1678555641247,
+          completed: false,
+          important: false,
+        },
+        {
+          id: uuidv4().slice(-7),
+          name: "Mow the lawn",
+          difficulty: 3,
+          date: 1678455641247,
+          completed: false,
+          important: false,
+        },
+        {
+          id: uuidv4().slice(-7),
+          name: "Do the laundry",
+          difficulty: 4,
+          date: 1678255641247,
+          completed: false,
+          important: false,
+        },
+      ]
+    );
+  });
 
-const [totalStars, setTotalStars] = useState(0)
+  const [totalStars, setTotalStars] = useState(() => {
+    // Get the total stars from local storage
+    const savedTotalStars = localStorage.getItem("totalStars");
+    const initialTotalStars = JSON.parse(savedTotalStars);
+    // If there are no total stars, return 0
+    return initialTotalStars || 0;
+  });
 
-useEffect(() => {
-  // Save the todos to local storage
-  localStorage.setItem("todos", JSON.stringify(todos));
-}, [todos]);
+  useEffect(() => {
+    // Save the total stars to local storage
+    localStorage.setItem("totalStars", JSON.stringify(totalStars));
+  }, [totalStars]);
+
+  useEffect(() => {
+    // Save the todos to local storage
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   // Count the number of important tasks
   const [importantCount, setImportantCount] = useState(() => {
@@ -103,6 +117,14 @@ useEffect(() => {
           Sort by difficulty
         </Button>
         <Button onClick={() => setTodos(sortedTodosDate)}>Sort by date</Button>
+        <Badge
+          badgeContent={totalStars}
+          color="secondary"
+          overlap="circular"
+          showZero
+        >
+          <StarIcon sx={{ fontSize: "2rem", color: "#ffbd00" }} />
+        </Badge>
       </Box>
       <Grid container sx={{ marginTop: 2 }}>
         {todos.map((todo, idx) => (

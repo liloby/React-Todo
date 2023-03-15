@@ -1,7 +1,8 @@
-import { Button, Card } from "@mui/material";
+import { Button, Card, Box } from "@mui/material";
 import { useState } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TodoListItem({
@@ -45,6 +46,7 @@ export default function TodoListItem({
 
   // handle marking a task as completed
   function handleCompleteTodo() {
+    setTotalStars(totalStars + star);
     // create a new array of todos, with the updated todo
     const updatedTodos = todos.map((t) => {
       // if the todo id matches the id of the todo we want to update, return the updated todo
@@ -101,7 +103,46 @@ export default function TodoListItem({
       </Button>
       {/* <h2 className="todo-item-id">{idx + 1}</h2> */}
       <h3 className="todo-item-name">Task: {todo.name}</h3>
-      <h3 className="todo-item-difficulty">Difficulty: {todo.difficulty}</h3>
+      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <h3>Difficulty:</h3>
+        {todo.difficulty === 1 ? (
+            <StarIcon sx={{ color: "#ffbd00" }} />
+        )
+             : todo.difficulty === 2 ? (
+                <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+                </>
+             )
+             : todo.difficulty === 3 ? (
+                <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+                </>
+             )
+             : todo.difficulty === 4 ? (
+                <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+                </>
+             )
+             : todo.difficulty === 5 ? (
+                <>
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+            <StarIcon sx={{ color: "#ffbd00" }} />
+                </>
+             )
+             : (
+            <StarIcon sx={{ color: "#ffbd00" }} />
+             )
+            }   
+      </Box>
       <h3 className="todo-item-date">
         Date Created: {new Date(todo.date).toLocaleDateString("en-US")}
       </h3>
