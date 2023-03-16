@@ -5,8 +5,7 @@ import NewTodoEnter from "../NewTodoEnter/NewTodoEnter";
 import { v4 as uuidv4 } from "uuid";
 import { Box, Grid, Card, Button } from "@mui/material";
 export default function TodoList({ isMobile }) {
-  const [todos, setTodos] = useLocalStorage("todos", 
-    [
+  const [todos, setTodos] = useLocalStorage("todos", [
     {
       id: uuidv4().slice(-7),
       name: "Take out the trash",
@@ -49,9 +48,11 @@ export default function TodoList({ isMobile }) {
     },
   ]);
 
-
   // Count the number of important tasks
-  const [importantCount, setImportantCount] = useLocalStorage("importantCount", 0);
+  const [importantCount, setImportantCount] = useLocalStorage(
+    "importantCount",
+    0
+  );
 
   // Delete a todo
   function deleteTodo(id) {
@@ -63,24 +64,29 @@ export default function TodoList({ isMobile }) {
     // Only decrement the important count if it's greater than 3 and the todo is important
   }
 
-  // Sort the todos by difficulty from least to most difficult
-  const sortedTodosDifficulty = useMemo(() => {
-    return [...todos].sort((a, b) => a.difficulty - b.difficulty);
-  }, [todos]);
+  const [sortType, setSortType] = useState("ascend");
 
-  // Sort the todos by date most recent first
-  const sortedTodosDate = useMemo(() => {
-    return [...todos].sort((a, b) => b.date - a.date);
-  }, [todos]);
+  // Sort the todos by difficulty or date
+  const sortTodos = (sortBy) => {
+    setTodos([...todos].sort((a, b) => a[sortBy] - b[sortBy]));
+  };
+
+  // const sortTodos = (sortBy) => {
+  //   const sortedTodos = [...todos].sort((a, b) =>
+  //     sortType === "ascend" ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
+  //   );
+  //   setTodos(sortedTodos);
+  //   setSortType(sortType === "ascend" ? "descend" : "ascend");
+  // };
 
   return (
     <>
       <NewTodoEnter setTodos={setTodos} todos={todos} isMobile={isMobile} />
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
-        <Button onClick={() => setTodos(sortedTodosDifficulty)}>
+        <Button onClick={() => sortTodos("difficulty")}>
           Sort by difficulty
         </Button>
-        <Button onClick={() => setTodos(sortedTodosDate)}>Sort by date</Button>
+        <Button onClick={() => sortTodos("date")}>Sort by date</Button>
       </Box>
       <Grid container sx={{ marginTop: 2 }}>
         {todos.map((todo, idx) => (
