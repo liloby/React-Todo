@@ -91,7 +91,7 @@ export default function TodoList({ isMobile }) {
         <Button onClick={() => sortTodos("difficulty")}>
           Sort by difficulty
         </Button>
-        <Button onClick={() => setTodos(sortedTodosDate)}>Sort by date</Button>
+        <Button onClick={() => sortTodos("date")}>Sort by date</Button>
         <Badge
           badgeContent={totalStars}
           color="secondary"
