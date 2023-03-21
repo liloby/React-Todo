@@ -64,13 +64,13 @@ export default function TodoList({ isMobile }) {
     // Only decrement the important count if it's greater than 3 and the todo is important
   }
 
-  const [sortType, setSortType] = useState("ascend");
-
+  
   // Sort the todos by difficulty or date
   const sortTodos = (sortBy) => {
     setTodos([...todos].sort((a, b) => a[sortBy] - b[sortBy]));
   };
-
+  
+  // const [sortType, setSortType] = useState("ascend");
   // const sortTodos = (sortBy) => {
   //   const sortedTodos = [...todos].sort((a, b) =>
   //     sortType === "ascend" ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
