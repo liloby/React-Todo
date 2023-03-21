@@ -3,7 +3,9 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import NewTodoEnter from "../NewTodoEnter/NewTodoEnter";
 import { v4 as uuidv4 } from "uuid";
-import { Box, Grid, Card, Button } from "@mui/material";
+import { Box, Grid, Card, Button, Badge } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+
 export default function TodoList({ isMobile }) {
   const [todos, setTodos] = useLocalStorage("todos", [
     {
@@ -48,6 +50,9 @@ export default function TodoList({ isMobile }) {
     },
   ]);
 
+  // Count the number of stars earned
+  const [totalStars, setTotalStars] = useLocalStorage("totalStars", 0);
+
   // Count the number of important tasks
   const [importantCount, setImportantCount] = useLocalStorage(
     "importantCount",
@@ -86,7 +91,16 @@ export default function TodoList({ isMobile }) {
         <Button onClick={() => sortTodos("difficulty")}>
           Sort by difficulty
         </Button>
-        <Button onClick={() => sortTodos("date")}>Sort by date</Button>
+        <Button onClick={() => setTodos(sortedTodosDate)}>Sort by date</Button>
+        <Badge
+          badgeContent={totalStars}
+          color="secondary"
+          overlap="circular"
+          max={999}
+          showZero
+        >
+          <StarIcon sx={{ fontSize: "2rem", color: "#ffbd00" }} />
+        </Badge>
       </Box>
       <Grid container sx={{ marginTop: 2 }}>
         {todos.map((todo, idx) => (
@@ -100,6 +114,8 @@ export default function TodoList({ isMobile }) {
               deleteTodo={deleteTodo}
               importantCount={importantCount}
               setImportantCount={setImportantCount}
+              setTotalStars={setTotalStars}
+              totalStars={totalStars}
             />
           </Grid>
         ))}
