@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 import {useState, useEffect} from 'react';
-=======
-import { useState, useEffect } from "react";
->>>>>>> add-reward-feature
+
 
 // This is a custom hook that will save the value of a state variable to local storage
 function getSavedValue(key, initialValue) {
@@ -28,8 +26,4 @@ export default function useLocalStorage(key, initialValue) {
   }, [value]);
 
   return [value, setValue];
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> add-reward-feature
